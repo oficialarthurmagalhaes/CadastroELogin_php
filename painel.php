@@ -13,7 +13,7 @@ include('protect.php');
     <title>Painel</title>
 </head>
 <body>
-    <h1 class="textopainel">Bem vindo ao Painel, <?php echo $_SESSION['nome']; ?> </h1>
+    <h1 class="textopainel">Bem vindo ao Painel, <?php echo $_SESSION['nome']; ?> </h1> 
 
     <p>
         <a href="logout.php">Sair</a>
