@@ -1,3 +1,46 @@
+<?php
+
+// Verificar se o formulário foi enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obter as informações do formulário
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    $confirmarsenha = $_POST['confirmarsenha'];
+
+    // Verificar se as senhas correspondem
+    if ($senha !== $confirmarsenha) {
+        echo "As senhas não correspondem.";
+        exit; // Encerrar o script se as senhas não correspondem
+    }
+
+    // Configuração do banco de dados
+    $host = "localhost"; // nome do servidor
+    $usuario = "root"; // nome de usuário do banco de dados
+    $dbsenha = ""; // senha do banco de dados
+    $database = "login"; // nome do banco de dados
+
+    // Criar a conexão
+    $conn = new mysqli($host, $usuario, $dbsenha, $database);
+
+    // Verificar conexão
+    if ($conn->connect_error) {
+        die("Falha na conexão: " . $conn->connect_error);
+    }
+    
+    // Inserir no banco de dados
+    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha')";
+   
+    if ($conn->query($sql) === TRUE) {
+        header('Location: index.php');
+    } else {
+        echo "Erro ao cadastrar: " . $conn->error;
+    }
+
+    $conn->close(); // Fechar a conexão com o banco de dados
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,15 +56,16 @@
 <body>
     <div class="container">
         <div class="box">
-            <form>
+            <form method="POST" action="">
                 <h1>Cadastro</h1>
-                <input id="nomedeusuario" type="text" placeholder="Nome de Usuário" required>
-                <input id="email" type="email" placeholder="Email" required>
-                <input id="senha" type="password" placeholder="Senha" required>
-                <input id="confirmarsenha" type="password" placeholder="Confirmar Senha" required>
-                <button id="cadastrese" type="submit">Cadastrar</button>
+                <input id="nome" type="text" name="nome" placeholder="Nome de Usuário" required>
+                <input id="email" type="email" name="email" placeholder="Email" required>
+                <input id="senha" type="password" name="senha" placeholder="Senha" required>
+                <input id="confirmarsenha" type="password" name="confirmarsenha" placeholder="Confirmar Senha" required>
+                <button type="submit">Cadastrar</button>
+                <a href="index.php">Já possui uma conta?Faça Login</a>
             </form>
         </div>
     </div>
 </body>
-</html> 
+</html>

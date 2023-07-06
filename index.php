@@ -37,10 +37,6 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     }
 }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 ?>
 
 <!DOCTYPE html>
@@ -69,9 +65,6 @@ error_reporting(E_ALL);
                 <a href="cadastro.php">Não tem Login? Cadastre-se</a>
             </form>
         </div>
-       
     </div>
-    
-    
 </body>
 </html>
